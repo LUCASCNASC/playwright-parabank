@@ -1,9 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
-test('Cadastrar Novo Usuário', async ({ page }) => {
-  // Gera dados fictícios
-  const firstName = faker.person.firstName();
+const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
   const address = faker.location.streetAddress();
   const city = faker.location.city();
@@ -14,7 +12,8 @@ test('Cadastrar Novo Usuário', async ({ page }) => {
   const username = faker.internet.username();
   const password = faker.internet.password({ length: 10 });
 
-  // Abre a página inicial
+test('Cadastrar Novo Usuário com Sucesso', async ({ page }) => {
+  
   await page.goto('/');
   await page.getByRole('link', { name: 'Register' }).click();
   await page.locator('#customer\\.firstName').fill(firstName);
@@ -44,4 +43,22 @@ test('Cadastrar Novo Usuário', async ({ page }) => {
     username,
     password,
   });
+});
+
+test('Tentar cadastrar novo usuário sem preencher os campos', async ({ page }) => {
+  
+  await page.goto('/');
+  await page.getByRole('link', { name: 'Register' }).click();
+  await page.getByRole('button', { name: 'Register' }).click();
+  await expect(page.getByText('Signing up is easy!')).toBeVisible();
+  await expect(page.getByText('First name is required.')).toBeVisible();
+  await expect(page.getByText('Last name is required')).toBeVisible();
+  await expect(page.getByText('Address is required.')).toBeVisible();
+  await expect(page.getByText('City is required.')).toBeVisible();
+  await expect(page.getByText('State is required.')).toBeVisible();
+  await expect(page.getByText('Zip Code is required.')).toBeVisible();
+  await expect(page.getByText('Social Security Number is required.')).toBeVisible();
+  await expect(page.getByText('Username is required.')).toBeVisible();
+  await expect(page.getByText('Password is required.')).toBeVisible();
+  await expect(page.getByText('Password confirmation is required.')).toBeVisible();
 });

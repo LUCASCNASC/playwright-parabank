@@ -9,3 +9,4 @@ node_modules/
 
 # Evitar subir configs sensíveis
 .env
+users.json
