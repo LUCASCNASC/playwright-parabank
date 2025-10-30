@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import users from '../data/users.json';
 
 test('login', async ({ page }) => {
   await page.goto('/');
