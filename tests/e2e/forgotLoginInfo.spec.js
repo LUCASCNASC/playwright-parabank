@@ -9,7 +9,7 @@ const state = faker.location.state();
 const zipCode = faker.location.zipCode();
 const ssn = faker.string.numeric(9);
 
-test('Forgor Login Info', async ({ page }) => {
+test('Click onForgot Login Info', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Forgot login info?' }).click();
   await page.locator('#firstName').fill(firstName);

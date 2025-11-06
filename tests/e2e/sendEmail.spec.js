@@ -5,7 +5,7 @@ const firstName = faker.person.firstName();
 const phone = faker.phone.number();
 const email = faker.internet.email();
 
-test('test', async ({ page }) => {
+test('Send New Email', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'contact', exact: true }).click();
   await page.locator('#name').fill(firstName);

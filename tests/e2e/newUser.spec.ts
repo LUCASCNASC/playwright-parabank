@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
 
-const firstName = faker.person.firstName();
+  const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
   const address = faker.location.streetAddress();
   const city = faker.location.city();
@@ -12,7 +12,7 @@ const firstName = faker.person.firstName();
   const username = faker.internet.username();
   const password = faker.internet.password({ length: 10 });
 
-test('Cadastrar Novo Usuário com Sucesso', async ({ page }) => {
+test('Create New User', async ({ page }) => {
   
   await page.goto('/');
   await page.getByRole('link', { name: 'Register' }).click();

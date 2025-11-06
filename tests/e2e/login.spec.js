@@ -1,8 +1,8 @@
 import { test, expect } from '@playwright/test';
 import users from '../data/users.json';
 
-test('login', async ({ page }) => {
-  await page.goto('/');
+test('Login Sucessful', async ({ page }) => {
+  awaitLpage.goto('/');
   await page.locator('input[name="username"]').fill(users.validUser.username);
   await page.locator('input[type="password"]').fill(users.validUser.password);
   await page.getByRole('button', { name: 'Log In' }).click();
