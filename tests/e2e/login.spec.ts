@@ -1,12 +1,11 @@
 import { test, expect } from '@playwright/test';
-import users from '../data/users.json';
-import { LoginPage}  from '../../page/LoginPage';
+import { LoginPage } from '../../page/LoginPage';
 
-test('Login Sucessful', async ({ page }) => {
+test('Login Successful', async ({ page }) => {
+  const loginPage = new LoginPage(page);
 
   await page.goto('/');
-  LoginPage.
-  LoginPage.
-  LoginPage.
-  
+  await loginPage.fillUsername();
+  await loginPage.fillPassword();
+  await loginPage.clickEnter();
 });

@@ -1,8 +1,14 @@
-import { faker } from '@faker-js/faker';
+import { Page, expect } from '@playwright/test';
 
 export class LogoutPage {
-    
-    // clickRegister() {
-    //     cy.contains('Register').click();
-    // }
+  readonly page: Page;
+
+  constructor(page: Page) {
+    this.page = page;
+  }
+
+  async clickLogout() {
+    await this.page.getByRole('link', { name: 'Log Out' }).click();
+    await expect(this.page.getByText('Customer Login')).toBeVisible();
+  }
 }

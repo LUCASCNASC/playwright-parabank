@@ -1,12 +1,14 @@
 import { test, expect } from '@playwright/test';
-import users from '../data/users.json';
+import { LoginPage } from '../../page/LoginPage';
+import { LogoutPage } from '../../page/LogoutPage';
 
 test('Logout Sucessful', async ({ page }) => {
+  const loginPage = new LoginPage(page);
+  const logoutPage = new LogoutPage(page);
+
   await page.goto('/');
-  await page.locator('input[name="username"]').fill(users.validUser.username);
-  await page.locator('input[type="password"]').fill(users.validUser.password);
-  await page.getByRole('button', { name: 'Log In' }).click();
-  await expect(page.getByText('Balance includes deposits that may be subject to holds')).toBeVisible();
-  await page.getByRole('link', { name: 'Log Out' }).click();
-  await expect(page.getByText('Customer Login')).toBeVisible();
+  await loginPage.fillUsername();
+  await loginPage.fillPassword();
+  await loginPage.clickEnter();
+  await logoutPage.clickLogout()
 });
