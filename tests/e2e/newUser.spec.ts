@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { faker } from '@faker-js/faker';
+import { NewUserPage } from '../../page/NewUserPage';
 
   const firstName = faker.person.firstName();
   const lastName = faker.person.lastName();
@@ -13,18 +14,20 @@ import { faker } from '@faker-js/faker';
   const password = faker.internet.password({ length: 10 });
 
 test('Create New User', async ({ page }) => {
+
+  const newUserPage = new NewUserPage(page);
   
   await page.goto('/');
-  await page.getByRole('link', { name: 'Register' }).click();
-  await page.locator('#customer\\.firstName').fill(firstName);
-  await page.locator('#customer\\.lastName').fill(lastName);
-  await page.locator('#customer\\.address\\.street').fill(address);
-  await page.locator('#customer\\.address\\.city').fill(city);
-  await page.locator('#customer\\.address\\.state').fill(state);
-  await page.locator('#customer\\.address\\.zipCode').fill(zipCode);
-  await page.locator('#customer\\.phoneNumber').fill(phone);
-  await page.locator('#customer\\.ssn').fill(ssn);
-  await page.locator('#customer\\.username').fill(username);
+  newUserPage.clickNewRegister()
+  newUserPage.fillFirstName()
+  newUserPage.fillLastName()
+  newUserPage.fillAdress()
+  newUserPage.fillCity()
+  newUserPage.fillState()
+  newUserPage.fillZipCode()
+  newUserPage.fillPhone()
+  newUserPage.fillSSN()
+  newUserPage.fillUsername()
   await page.locator('#customer\\.password').fill(password);
   await page.locator('#repeatedPassword').fill(password);
   await page.getByRole('button', { name: 'Register' }).click();
@@ -46,9 +49,11 @@ test('Create New User', async ({ page }) => {
 });
 
 test('Tentar cadastrar novo usuário sem preencher os campos', async ({ page }) => {
+
+  const newUserPage = new NewUserPage(page);
   
   await page.goto('/');
-  await page.getByRole('link', { name: 'Register' }).click();
+  newUserPage.clickNewRegister()
   await page.getByRole('button', { name: 'Register' }).click();
   await expect(page.getByText('Signing up is easy!')).toBeVisible();
   await expect(page.getByText('First name is required.')).toBeVisible();
